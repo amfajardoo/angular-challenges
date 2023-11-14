@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CityStore } from '../../data-access/city.store';
 import { StudentStore } from '../../data-access/student.store';
 import { TeacherStore } from '../../data-access/teacher.store';
 import { CardType } from '../../model/card.model';
@@ -22,14 +23,19 @@ export class ListItemComponent {
 
   constructor(
     private teacherStore: TeacherStore,
-    private studentStore: StudentStore
+    private studentStore: StudentStore,
+    private citiesStore: CityStore
   ) {}
 
   delete(id: number) {
     if (this.type === CardType.TEACHER) {
       this.teacherStore.deleteOne(id);
-    } else if (this.type === CardType.STUDENT) {
+    }
+    if (this.type === CardType.STUDENT) {
       this.studentStore.deleteOne(id);
+    }
+    if (this.type === CardType.CITY) {
+      this.citiesStore.deleteOne(id);
     }
   }
 }
